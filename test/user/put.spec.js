@@ -6,7 +6,7 @@ describe("PUT /user/:id", () => {
   let userIdOne;
 
   beforeAll(async () => {
-    const [id1] = await knex("users").insert(
+    const [{id: id1}] = await knex("users").insert(
       {
         name: "Walter Netto",
         email: "walter@example.com",

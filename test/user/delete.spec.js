@@ -16,12 +16,10 @@ describe("DELETE /user/:id", () => {
     );
 
     userIdOne = id1;
+    console.log("userIdOne: ", userIdOne);
   });
 
-  afterAll(async () => {
-    await knex("users").whereIn("email", ["walter@example.com"]).del();
-  });
-
+  
   it("should delete user by ID", async () => {
     const response = await request(app).delete(`/user/${userIdOne}`);
     expect(response.status).toBe(204);
@@ -31,12 +29,12 @@ describe("DELETE /user/:id", () => {
   it("should return error message for non-existing user", async () => {
     const response = await request(app).delete("/user/999999");
     expect(response.status).toBe(404);
-    expect(response.body.error).toBe("User not found");
+    expect(response.body.message).toBe("User not found");
   });
 
   it("should return error message for invalid ID format", async () => {
     const response = await request(app).delete("/user/string");
     expect(response.status).toBe(400);
-    expect(response.body.error).toBe("Invalid ID format");
+    expect(response.body.message).toBe("Invalid ID format");
   });
 });

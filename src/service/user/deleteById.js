@@ -1,19 +1,20 @@
 const userModel = require("../../model/user");
 
-const findById = async (id) => {
+const deleteById = async (id) => {
+  
   if (isNaN(id)) {
     const statusCode = 400;
     throw { statusCode, message: "Invalid ID format" };
   }
+  const checkUser = await userModel.findById(id);
 
-  const response = await userModel.findById(id);
-
-  if (!response) {
+  if (!checkUser) {
     const statusCode = 404;
     throw { statusCode, message: "User not found" };
   }
 
+  const response = await userModel.deleteById(id);
   return response;
 };
 
-module.exports = findById;
+module.exports = deleteById;

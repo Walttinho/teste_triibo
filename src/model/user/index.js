@@ -6,10 +6,13 @@ const findAll = require("./findAll");
 
 const findById = require("./findById");
 
+const deleteById = require("./deleteById");
+
 
 module.exports = {
     create,
     findByEmail,
     findAll,
-    findById
+    findById,
+    deleteById
 }

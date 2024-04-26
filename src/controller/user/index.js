@@ -8,10 +8,13 @@ const deleteById = require("./deleteById");
 
 const updateById = require("./updateById");
 
+const loginUser = require("./loginUser");
+
 module.exports = {
   create,
   findAll,
   findById,
   deleteById,
   updateById,
+  loginUser,
 };

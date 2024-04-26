@@ -1,5 +1,6 @@
 const { userSchema } = require("../../middleware/userValidation/validation");
 const userModel = require("../../model/user");
+const bcrypt = require("bcrypt");
 
 const create = async (user) => {
   try {
@@ -16,7 +17,10 @@ const create = async (user) => {
     throw { statusCode, message: "User already exists" };
   }
 
-  const result = await userModel.create(user);
+  const newPassword = await bcrypt.hash(user.password, 10);
+  const newUser = { ...user, password: newPassword };
+
+  const result = await userModel.create(newUser);
 
   return result;
 };

@@ -6,5 +6,6 @@ userRouter.get("/", userController.findAll);
 userRouter.get("/:id", userController.findById);
 userRouter.delete("/:id", userController.deleteById);
 userRouter.put("/:id", userController.updateById);
+userRouter.post("/login", userController.loginUser);
 
 module.exports = userRouter;

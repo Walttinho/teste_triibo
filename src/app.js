@@ -1,12 +1,12 @@
-const express = require('express');
-const router = require('./router/indexRouter');
+const express = require("express");
+const router = require("./router/indexRouter");
 require("dotenv").config();
 require("./database/connection");
 
-const app = express()
+const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
-app.use(router)
+app.use(router);
 
-module.exports = app
+module.exports = app;

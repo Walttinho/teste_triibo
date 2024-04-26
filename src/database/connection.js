@@ -12,19 +12,18 @@ const knex = require("knex")({
   },
 });
 
-
 const createTableIfDoesNotExist = async () => {
-   const existTable = await knex.schema.hasTable("users");
+  const existTable = await knex.schema.hasTable("users");
 
-   if (!existTable) {
-     await knex.schema.createTable("users", (table) => {
-       table.increments("id").primary();
-       table.string("name", 255);
-       table.string("email",255 );
-       table.string("password",255);       
-     });
-     console.log("Table users created successfully");
-   }
+  if (!existTable) {
+    await knex.schema.createTable("users", (table) => {
+      table.increments("id").primary();
+      table.string("name", 255);
+      table.string("email", 255);
+      table.string("password", 255);
+    });
+    console.log("Table users created successfully");
+  }
 };
 
 (async () => {
@@ -37,7 +36,4 @@ const createTableIfDoesNotExist = async () => {
   }
 })();
 
-
-
-
-module.exports = knex
+module.exports = knex;

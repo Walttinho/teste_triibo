@@ -2,20 +2,14 @@ const request = require("supertest");
 const app = require("../../src/app");
 const knex = require("../../src/database/connection");
 
-describe("POST /user", () => { 
-
+describe("POST /user", () => {
   beforeAll(async () => {
-  
     await knex("users").where({ email: "walter@example.com" }).del();
-
   });
 
   afterAll(async () => {
     await knex("users").where({ email: "walter@example.com" }).del();
-    
   });
-
- 
 
   it("should create a new user", async () => {
     const response = await request(app).post("/user").send({

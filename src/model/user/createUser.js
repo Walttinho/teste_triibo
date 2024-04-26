@@ -2,7 +2,9 @@ const knex = require("../../database/connection");
 
 const create = async (user) => {
   try {
-    const response = await knex("users").insert(user).returning(["id", "name", "email"]);
+    const response = await knex("users")
+      .insert(user)
+      .returning(["id", "name", "email"]);
 
     if (response.length === 0) {
       throw new Error("User not created");
@@ -14,4 +16,4 @@ const create = async (user) => {
   }
 };
 
-module.exports =  create ;
+module.exports = create;

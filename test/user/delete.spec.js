@@ -6,7 +6,7 @@ describe("DELETE /user/:id", () => {
   let userIdOne;
 
   beforeAll(async () => {
-    const [{id: id1}] = await knex("users").insert(
+    const [{ id: id1 }] = await knex("users").insert(
       {
         name: "Walter Netto",
         email: "walter@example.com",
@@ -15,11 +15,9 @@ describe("DELETE /user/:id", () => {
       ["id"]
     );
 
-    userIdOne = id1;
-    console.log("userIdOne: ", userIdOne);
+    userIdOne = id1;   
   });
 
-  
   it("should delete user by ID", async () => {
     const response = await request(app).delete(`/user/${userIdOne}`);
     expect(response.status).toBe(204);

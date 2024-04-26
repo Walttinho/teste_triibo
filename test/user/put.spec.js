@@ -41,7 +41,7 @@ describe("PUT /user/:id", () => {
 
   it("should update only the email", async () => {
     const updatedUserData = {
-      email: "renata.update@example.com"     
+      email: "renata.update@example.com",
     };
 
     const response = await request(app)
@@ -63,7 +63,7 @@ describe("PUT /user/:id", () => {
       .put(`/user/${userIdOne}`)
       .send(updatedUserData);
 
-    expect(response.status).toBe(200);    
+    expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("id");
@@ -80,10 +80,9 @@ describe("PUT /user/:id", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.name).toBe(updatedUserData.name);
-    expect(response.body).toHaveProperty("email");    
+    expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("id");
   });
-
 
   it("should return  error message for empty request body", async () => {
     const response = await request(app).put(`/user/${userIdOne}`).send({});

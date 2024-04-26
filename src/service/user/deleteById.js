@@ -1,7 +1,6 @@
 const userModel = require("../../model/user");
 
 const deleteById = async (id) => {
-  
   if (isNaN(id)) {
     const statusCode = 400;
     throw { statusCode, message: "Invalid ID format" };

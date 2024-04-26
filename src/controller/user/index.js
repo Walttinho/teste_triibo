@@ -8,11 +8,10 @@ const deleteById = require("./deleteById");
 
 const updateById = require("./updateById");
 
-
 module.exports = {
-    create,
-    findAll,
-    findById,
-    deleteById,
-    updateById
-}
+  create,
+  findAll,
+  findById,
+  deleteById,
+  updateById,
+};

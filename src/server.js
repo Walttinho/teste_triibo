@@ -1,6 +1,6 @@
-const app = require('./app')
+const app = require("./app");
 
-const port = process.env.PORT 
-app.listen(port)
+const port = process.env.PORT;
+app.listen(port);
 
-console.log('Server on port', port)
+console.log("Server on port", port);

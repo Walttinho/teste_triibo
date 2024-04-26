@@ -1,11 +1,11 @@
 const knex = require("../../database/connection");
 
 const findById = async (id) => {
-    const response = await knex("users")
-      .where({ id })
-      .first(["id", "name", "email"]);
+  const response = await knex("users")
+    .where({ id })
+    .first(["id", "name", "email"]);
 
-    return response;
+  return response;
 };
 
-module.exports = findById
+module.exports = findById;

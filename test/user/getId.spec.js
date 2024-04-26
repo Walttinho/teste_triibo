@@ -6,7 +6,7 @@ describe("GET /user/:id", () => {
   let userIdOne;
 
   beforeAll(async () => {
-    const [{id: id1}] = await knex("users").insert(
+    const [{ id: id1 }] = await knex("users").insert(
       {
         name: "Walter Netto",
         email: "walter@example.com",
@@ -14,15 +14,12 @@ describe("GET /user/:id", () => {
       },
       ["id"]
     );
-  
 
     userIdOne = id1;
-
-    console.log("userIdOne: ", userIdOne);
   });
 
   afterAll(async () => {
-    //await knex("users").whereIn("email", ["walter@example.com"]).del();
+    await knex("users").whereIn("email", ["walter@example.com"]).del();
   });
 
   it("should find user by ID", async () => {
@@ -40,7 +37,6 @@ describe("GET /user/:id", () => {
   });
 
   it("should return error message for invalid ID format", async () => {
-
     const response = await request(app).get("/user/string");
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Invalid ID format");

@@ -1,4 +1,5 @@
-const userSchema = require("../../middleware/userValidation/validation");
+
+const { userSchema } = require("../../middleware/userValidation/validation");
 const userModel = require("../../model/user");
 
 const create = async (user) => {

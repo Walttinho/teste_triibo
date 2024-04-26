@@ -6,4 +6,10 @@ const userSchema = yup.object().shape({
     password: yup.string().required('Password is required')
 });
 
-module.exports = userSchema
+const updateUserSchema = yup.object().shape({
+    name: yup.string(),
+    email: yup.string().email('Invalid email'),
+    password: yup.string()
+});
+
+module.exports = {userSchema, updateUserSchema}

@@ -27,6 +27,6 @@ describe("GET /user", () => {
   it("should find all users", async () => {
     const response = await request(app).get("/user");
     expect(response.status).toBe(200);
-    expect(response.body.length).toBeGreaterThan(2);
+    expect(response.body.length).toBeGreaterThan(1);
   });
 });

@@ -3,49 +3,55 @@ const app = require("../../src/app");
 const knex = require("../../src/database/connection");
 
 describe("PUT /user/:id", () => {
-  let userIdOne;
+  let userId;
+  let token;
 
   beforeAll(async () => {
-    const [{ id: id1 }] = await knex("users").insert(
-      {
-        name: "Walter Netto",
-        email: "walter@example.com",
-        password: "123456",
-      },
-      ["id"]
-    );
+    const user = await request(app).post("/user").send({
+      name: "Walter Netto",
+      email: "walter@update.com",
+      password: "123456",
+    });
 
-    userIdOne = id1;
+    userId = user.body.id;
+
+    const response = await request(app)
+      .post("/user/login")
+      .send({ email: "walter@update.com", password: "123456" });
+
+    token = response.body.token;
   });
 
   afterAll(async () => {
-    await knex("users").whereIn("email", ["renata.update@example.com"]).del();
+    await knex("users").whereIn("email", ["renata.update@update.com"]).del();
   });
 
   it("should update user by ID", async () => {
     const updatedUserData = {
       name: "Renata Medeiros",
-      email: "renata@example.com",
+      email: "renata@update.com",
       password: "654321",
     };
 
     const response = await request(app)
-      .put(`/user/${userIdOne}`)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updatedUserData);
 
     expect(response.status).toBe(200);
     expect(response.body.name).toBe(updatedUserData.name);
     expect(response.body.email).toBe(updatedUserData.email);
-    expect(response.body.id).toBe(userIdOne);
+    expect(response.body.id).toBe(userId);
   });
 
   it("should update only the email", async () => {
     const updatedUserData = {
-      email: "renata.update@example.com",
+      email: "renata.update@update.com",
     };
 
     const response = await request(app)
-      .put(`/user/${userIdOne}`)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updatedUserData);
 
     expect(response.status).toBe(200);
@@ -60,7 +66,8 @@ describe("PUT /user/:id", () => {
     };
 
     const response = await request(app)
-      .put(`/user/${userIdOne}`)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updatedUserData);
 
     expect(response.status).toBe(200);
@@ -75,7 +82,8 @@ describe("PUT /user/:id", () => {
     };
 
     const response = await request(app)
-      .put(`/user/${userIdOne}`)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
       .send(updatedUserData);
 
     expect(response.status).toBe(200);
@@ -85,39 +93,51 @@ describe("PUT /user/:id", () => {
   });
 
   it("should return  error message for empty request body", async () => {
-    const response = await request(app).put(`/user/${userIdOne}`).send({});
+    const response = await request(app)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({});
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Request body cannot be empty");
   });
 
   it("should return error message for non-existing user", async () => {
-    const response = await request(app).put("/user/999999").send({
-      name: "Renata Medeiros",
-      email: "renata@example.com",
-      password: "654321",
-    });
+    const response = await request(app)
+      .put("/user/999999")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Renata Medeiros",
+        email: "renata@update.com",
+        password: "654321",
+      });
 
     expect(response.status).toBe(404);
     expect(response.body.message).toBe("User not found");
   });
 
   it("should return error message for invalid ID format", async () => {
-    const response = await request(app).put("/user/string").send({
-      name: "Renata Medeiros",
-      email: "renata@example.com",
-      password: "654321",
-    });
+    const response = await request(app)
+      .put("/user/string")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Renata Medeiros",
+        email: "renata@update.com",
+        password: "654321",
+      });
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Invalid ID format");
   });
 
   it("should return error message for invalid email", async () => {
-    const response = await request(app).put(`/user/${userIdOne}`).send({
-      name: "Renata Medeiros",
-      email: "invalid-email",
-      password: "654321",
-    });
+    const response = await request(app)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Renata Medeiros",
+        email: "invalid-email",
+        password: "654321",
+      });
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Invalid email");

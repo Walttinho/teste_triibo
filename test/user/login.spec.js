@@ -21,7 +21,7 @@ describe("POST /user/login", () => {
   });
 
   afterAll(async () => {
-    //await knex("users").whereIn("email", ["walter@teste.com"]).del();
+    await knex("users").whereIn("email", ["walter@teste.com"]).del();
   });
 
   it("should login user", async () => {

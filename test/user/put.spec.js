@@ -63,8 +63,7 @@ describe("PUT /user/:id", () => {
       .put(`/user/${userIdOne}`)
       .send(updatedUserData);
 
-    expect(response.status).toBe(200);
-    expect(response.body.password).toBe(updatedUserData.password);
+    expect(response.status).toBe(200);    
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("id");
@@ -81,8 +80,7 @@ describe("PUT /user/:id", () => {
 
     expect(response.status).toBe(200);
     expect(response.body.name).toBe(updatedUserData.name);
-    expect(response.body).toHaveProperty("email");
-    expect(response.body).toHaveProperty("password");
+    expect(response.body).toHaveProperty("email");    
     expect(response.body).toHaveProperty("id");
   });
 

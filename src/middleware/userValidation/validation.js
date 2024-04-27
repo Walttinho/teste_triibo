@@ -4,6 +4,11 @@ const userSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup.string().required("Password is required"),
+  cep: yup
+    .string()
+    .length(8)
+    .matches(/^\d{8}$/, "Invalid CEP format")
+    .required("CEP is required"),
 });
 
 const updateUserSchema = yup.object().shape({

@@ -10,6 +10,8 @@ const deleteById = require("./deleteById");
 
 const updateById = require("./updateById");
 
+const createAddress = require("./addressUser");
+
 module.exports = {
   create,
   findByEmail,
@@ -17,4 +19,5 @@ module.exports = {
   findById,
   deleteById,
   updateById,
+  createAddress
 };

@@ -13,17 +13,36 @@ const knex = require("knex")({
 });
 
 const createTableIfDoesNotExist = async () => {
-  const existTable = await knex.schema.hasTable("users");
+  const existTableUsers = await knex.schema.hasTable("users");
 
-  if (!existTable) {
+  if (!existTableUsers) {
     await knex.schema.createTable("users", (table) => {
       table.increments("id").primary();
-      table.string("name", 255);
-      table.string("email", 255);
-      table.string("password", 255);
+      table.string("name", 255).notNullable();
+      table.string("email", 255).notNullable();
+      table.string("password", 255).notNullable();
     });
     console.log("Table users created successfully");
   }
+
+  const existTableAddresses = await knex.schema.hasTable("addresses");
+
+  if (!existTableAddresses) {
+    await knex.schema.createTable("addresses", (table) => {
+      
+    table.increments('id').primary();
+    table.string('street').notNullable();
+    table.string('district').notNullable();
+    table.string('city').notNullable();
+    table.string('state').notNullable();
+    table.string('cep').notNullable();
+    table.integer('user_id').unsigned().notNullable();
+    table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE');
+ 
+    });
+    console.log("Table addresses created successfully");
+  }
+
 };
 
 (async () => {

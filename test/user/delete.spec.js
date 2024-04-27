@@ -11,6 +11,7 @@ describe("DELETE /user/:id", () => {
       name: "Walter Netto",
       email: "walter@delete.com",
       password: "123456",
+      cep: "03089000",
     });
 
     userId = user.body.id;

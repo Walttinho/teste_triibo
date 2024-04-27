@@ -11,6 +11,7 @@ describe("Authorization Middleware", () => {
       name: "Walter Netto",
       email: "walter@auth.com",
       password: "123456",
+      cep: "03089000",
     });
 
     const response = await request(app)

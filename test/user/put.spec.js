@@ -11,6 +11,7 @@ describe("PUT /user/:id", () => {
       name: "Walter Netto",
       email: "walter@update.com",
       password: "123456",
+      cep: "03089000",
     });
 
     userId = user.body.id;
@@ -23,7 +24,9 @@ describe("PUT /user/:id", () => {
   });
 
   afterAll(async () => {
-    await knex("users").whereIn("email", ["renata.update@update.com"]).del();
+    await knex("users")
+      .whereIn("email", ["renata.update@update.com", "renata@update.com"])
+      .del();
   });
 
   it("should update user by ID", async () => {
@@ -31,6 +34,7 @@ describe("PUT /user/:id", () => {
       name: "Renata Medeiros",
       email: "renata@update.com",
       password: "654321",
+      cep: "03089000",
     };
 
     const response = await request(app)
@@ -42,6 +46,12 @@ describe("PUT /user/:id", () => {
     expect(response.body.name).toBe(updatedUserData.name);
     expect(response.body.email).toBe(updatedUserData.email);
     expect(response.body.id).toBe(userId);
+    expect(response.body).toHaveProperty("address");
+    expect(response.body.address).toHaveProperty("cep");
+    expect(response.body.address).toHaveProperty("street");
+    expect(response.body.address).toHaveProperty("district");
+    expect(response.body.address).toHaveProperty("city");
+    expect(response.body.address).toHaveProperty("state");
   });
 
   it("should update only the email", async () => {
@@ -58,6 +68,13 @@ describe("PUT /user/:id", () => {
     expect(response.body.email).toBe(updatedUserData.email);
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("id");
+    expect(response.body.id).toBe(userId);
+    expect(response.body).toHaveProperty("address");
+    expect(response.body.address).toHaveProperty("cep");
+    expect(response.body.address).toHaveProperty("street");
+    expect(response.body.address).toHaveProperty("district");
+    expect(response.body.address).toHaveProperty("city");
+    expect(response.body.address).toHaveProperty("state");
   });
 
   it("should update only the password", async () => {
@@ -74,6 +91,13 @@ describe("PUT /user/:id", () => {
     expect(response.body).toHaveProperty("name");
     expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("id");
+    expect(response.body.id).toBe(userId);
+    expect(response.body).toHaveProperty("address");
+    expect(response.body.address).toHaveProperty("cep");
+    expect(response.body.address).toHaveProperty("street");
+    expect(response.body.address).toHaveProperty("district");
+    expect(response.body.address).toHaveProperty("city");
+    expect(response.body.address).toHaveProperty("state");
   });
 
   it("should update only the name", async () => {
@@ -90,6 +114,36 @@ describe("PUT /user/:id", () => {
     expect(response.body.name).toBe(updatedUserData.name);
     expect(response.body).toHaveProperty("email");
     expect(response.body).toHaveProperty("id");
+    expect(response.body.id).toBe(userId);
+    expect(response.body).toHaveProperty("address");
+    expect(response.body.address).toHaveProperty("cep");
+    expect(response.body.address).toHaveProperty("street");
+    expect(response.body.address).toHaveProperty("district");
+    expect(response.body.address).toHaveProperty("city");
+    expect(response.body.address).toHaveProperty("state");
+  });
+
+  it("should update only the cep", async () => {
+    const updatedUserData = {
+      name: "Renata Medeiros Update",
+    };
+
+    const response = await request(app)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send(updatedUserData);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("name");
+    expect(response.body).toHaveProperty("email");
+    expect(response.body).toHaveProperty("id");
+    expect(response.body.id).toBe(userId);
+    expect(response.body).toHaveProperty("address");
+    expect(response.body.address).toHaveProperty("cep");
+    expect(response.body.address).toHaveProperty("street");
+    expect(response.body.address).toHaveProperty("district");
+    expect(response.body.address).toHaveProperty("city");
+    expect(response.body.address).toHaveProperty("state");
   });
 
   it("should return  error message for empty request body", async () => {
@@ -141,5 +195,35 @@ describe("PUT /user/:id", () => {
 
     expect(response.status).toBe(400);
     expect(response.body.message).toBe("Invalid email");
+  });
+
+  it("should not update a user with invalid CEP format", async () => {
+    const response = await request(app)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Renata Medeiros",
+        email: "renata@update.com",
+        password: "654321",
+        cep: "95010A10",
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Invalid CEP format");
+  });
+
+  it("should not update a user with non-existent CEP", async () => {
+    const response = await request(app)
+      .put(`/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        name: "Renata Medeiros",
+        email: "renata@update.com",
+        password: "654321",
+        cep: "99999999",
+      });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("CEP not found");
   });
 });

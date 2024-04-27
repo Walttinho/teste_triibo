@@ -11,6 +11,7 @@ describe("GET /user/:id", () => {
       name: "Walter Netto",
       email: "walter@getid.com",
       password: "123456",
+      cep: "03089000",
     });
 
     userId = user.body.id;
@@ -34,6 +35,12 @@ describe("GET /user/:id", () => {
     expect(response.body.name).toBe("Walter Netto");
     expect(response.body.email).toBe("walter@getid.com");
     expect(response.body.id).toBe(userId);
+    expect(response.body).toHaveProperty("address");
+    expect(response.body.address).toHaveProperty("cep");
+    expect(response.body.address).toHaveProperty("street");
+    expect(response.body.address).toHaveProperty("district");
+    expect(response.body.address).toHaveProperty("city");
+    expect(response.body.address).toHaveProperty("state");
   });
 
   it("should return error message for non-existing user", async () => {

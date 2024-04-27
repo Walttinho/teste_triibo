@@ -8,9 +8,13 @@ const findById = require("./findById");
 
 const deleteById = require("./deleteById");
 
-const updateById = require("./updateById");
+const updateUser = require("./updateUser");
 
 const createAddress = require("./addressUser");
+
+const findAddress = require("./findAddress");
+
+const updateAddress = require("./updateAddress");
 
 module.exports = {
   create,
@@ -18,6 +22,8 @@ module.exports = {
   findAll,
   findById,
   deleteById,
-  updateById,
-  createAddress
+  updateUser,
+  createAddress,
+  findAddress,
+  updateAddress,
 };

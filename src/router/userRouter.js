@@ -9,6 +9,6 @@ userRouter.use(middlewareAuthorization);
 userRouter.get("/", userController.findAll);
 userRouter.get("/:id", userController.findById);
 userRouter.delete("/:id", userController.deleteById);
-userRouter.put("/:id", userController.updateById);
+userRouter.put("/:id", userController.updateUser);
 
 module.exports = userRouter;

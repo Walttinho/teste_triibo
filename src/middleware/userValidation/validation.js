@@ -15,6 +15,10 @@ const updateUserSchema = yup.object().shape({
   name: yup.string(),
   email: yup.string().email("Invalid email"),
   password: yup.string(),
+  cep: yup
+    .string()
+    .length(8)
+    .matches(/^\d{8}$/, "Invalid CEP format"),
 });
 
 module.exports = { userSchema, updateUserSchema };

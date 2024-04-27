@@ -6,12 +6,16 @@ const findById = async (id) => {
     throw { statusCode, message: "Invalid ID format" };
   }
 
-  const response = await userModel.findById(id);
+  const user = await userModel.findById(id);
 
-  if (!response) {
+  const address = await userModel.findAddress(id);
+
+  if (!user) {
     const statusCode = 404;
     throw { statusCode, message: "User not found" };
   }
+
+  const response = { ...user, address };
 
   return response;
 };

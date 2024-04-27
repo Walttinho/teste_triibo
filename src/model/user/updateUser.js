@@ -1,6 +1,6 @@
 const knex = require("../../database/connection");
 
-const updateById = async (id, data) => {
+const updateUser = async (id, data) => {
   const response = await knex("users")
     .update(data)
     .where({ id })
@@ -9,4 +9,4 @@ const updateById = async (id, data) => {
   return response[0];
 };
 
-module.exports = updateById;
+module.exports = updateUser;

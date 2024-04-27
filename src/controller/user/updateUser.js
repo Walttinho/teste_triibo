@@ -1,15 +1,10 @@
 const userService = require("../../service/user");
 
-const updateById = async (req, res) => {
+const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { name, email, password } = req.body;
 
   try {
-    const response = await userService.updateById(id, {
-      name,
-      email,
-      password,
-    });
+    const response = await userService.updateUser(id, req.body);
     res.status(200).json(response);
   } catch (error) {
     if (error.statusCode) {
@@ -20,4 +15,4 @@ const updateById = async (req, res) => {
   }
 };
 
-module.exports = updateById;
+module.exports = updateUser;

@@ -6,7 +6,7 @@ const findById = require("./findById");
 
 const deleteById = require("./deleteById");
 
-const updateById = require("./updateById");
+const updateUser = require("./updateUser");
 
 const loginUser = require("./loginUser");
 
@@ -15,6 +15,6 @@ module.exports = {
   findAll,
   findById,
   deleteById,
-  updateById,
+  updateUser,
   loginUser,
 };

@@ -1,6 +1,7 @@
 const { userSchema } = require("../../middleware/userValidation/validation");
 const userModel = require("../../model/user");
 const bcrypt = require("bcrypt");
+const axios = require("axios");
 
 const create = async (user) => {
   try {
@@ -17,12 +18,34 @@ const create = async (user) => {
     throw { statusCode, message: "User already exists" };
   }
 
+  const { cep: userCep, ...userWithoutCep } = user;
   const newPassword = await bcrypt.hash(user.password, 10);
-  const newUser = { ...user, password: newPassword };
+  const newUser = { ...userWithoutCep, password: newPassword };
 
   const result = await userModel.create(newUser);
 
-  return result;
+  const addressResponse = await axios.get(
+    `https://viacep.com.br/ws/${user.cep}/json/`
+  );
+
+  if (addressResponse.data.erro) {
+    throw { statusCode: 400, message: "CEP not found" };
+  }
+
+  const { cep, logradouro, bairro, localidade, uf } = addressResponse.data;
+
+  const address = {
+    cep,
+    street: logradouro,
+    district: bairro,
+    city: localidade,
+    state: uf,
+    user_id: result.id,
+  };
+
+  await userModel.createAddress(address);
+
+  return { ...result, address };
 };
 
 module.exports = create;

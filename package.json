@@ -1,5 +1,5 @@
 {
-  "name": "crud",
+  "name": "Desafio Triibo",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
@@ -7,9 +7,16 @@
     "dev": "nodemon ./src/server.js",
     "test": "jest"
   },
+  "keywords": [
+    "node.js",
+    "express",
+    "crud",
+    "api",
+    "jwt"
+  ],
   "author": "Walter Netto",
   "license": "ISC",
-  "description": "",
+  "description": "A back-end application developed in Node.js and Express to manage user registrations and integrate with a public API. Utilizes JWT for authentication.",
   "dependencies": {
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
@@ -18,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "knex": "^3.1.0",
     "pg": "^8.11.5",
+    "swagger-ui-express": "^5.0.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

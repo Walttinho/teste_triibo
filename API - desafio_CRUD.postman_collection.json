@@ -1,0 +1,1058 @@
+{
+	"info": {
+		"_postman_id": "89234605-b4e7-45de-8787-27903622aae7",
+		"name": "API - desafio_CRUD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29861668"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create",
+					"item": [
+						{
+							"name": "validations",
+							"item": [
+								{
+									"name": "Return  400 status when email is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"  pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Error message is 'Email is required'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"Email is required\");",
+													"})",
+													"",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Walter Netto\",\r\n    \"password\": \"123456\",\r\n    \"cep\": \"03089000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  400 status when name is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"  pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Error message is 'Name is required'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"Name is required\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"walter@postman.com\",\r\n    \"password\": \"123456\",\r\n    \"cep\": \"03089000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  400 status when password is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"  pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Error message is 'Password is required'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"Password is required\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Walter Netto\",\r\n    \"email\": \"walter@postman.com\",\r\n    \"cep\": \"03089000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  400 status when CEP is missing",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"  pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Error message is 'Password is required'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"CEP is required\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Walter Netto\",\r\n    \"email\": \"walter@postman.com\",\r\n    \"password\": \"123456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  400 status when CEP is invalid",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"  pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"Error message is 'Password is required'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"Invalid CEP format\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Walter Netto\",\r\n    \"email\": \"walter@postman.com\",\r\n    \"password\": \"123456\",\r\n    \"cep\": \"030A9000\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  409 status when email is not unique",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is  409\", function () {",
+													"  pm.response.to.have.status(409);",
+													"});",
+													"",
+													"pm.test(\"Error message is 'User already exists'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"User already exists\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Walter Netto\",\r\n    \"email\": \"walter@postman2.com\",\r\n    \"password\": \"123456\",\r\n    \"cep\": \"03089000\"\r\n}"
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  400 status when email is Invalid email format",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is  400\", function () {",
+													"  pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Error message is 'Invalid email format'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"Invalid email\");",
+													"})",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Walter Netto\",\r\n    \"email\": \"walterpostman.com\",\r\n    \"password\": \"123456\",\r\n    \"cep\": \"03089000\"\r\n}"
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Return  201 status when creating a new user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is   201\", function () {",
+											"  pm.response.to.have.status(201);",
+											"});",
+											"pm.test(\"Response has id\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('id');",
+											"});",
+											"pm.test(\"Response name is correct\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('name');",
+											"});",
+											"pm.test(\"Response email is correct\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('email');",
+											"});",
+											"var userId = pm.response.json().id;",
+											"pm.environment.set('userId', userId);",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Walter Netto\",\r\n    \"email\": \"walter@postman.com\",\r\n    \"password\": \"123456\",\r\n    \"cep\": \"03089000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/user",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Login",
+					"item": [
+						{
+							"name": "validations",
+							"item": [
+								{
+									"name": "Return  400 status when email is wrong",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"  pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"Error message is 'Email is required'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"user or password is incorrect\");",
+													"})",
+													"",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"walterpostman.com\",\r\n    \"password\": \"123456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user/login",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  400 status when password is wrong",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 401\", function () {",
+													"  pm.response.to.have.status(401);",
+													"});",
+													"",
+													"pm.test(\"Error message is 'Password is required'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"user or password is incorrect\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"walter@postman.com\",\r\n    \"password\": \"12345\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user/login",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user",
+												"login"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Return  201 status when login sucessufuly",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is   200\", function () {",
+											"  pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Response has user\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('user');",
+											"});",
+											"pm.test(\"Response has token\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('token');",
+											"});",
+											"",
+											"var token = pm.response.json().token",
+											"pm.environment.set('token', token)",
+											"",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"walter@postman.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/user/login",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "List",
+					"item": [
+						{
+							"name": "Return  200 status when listing all users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"  pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Response data is an array\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.be.an('array');",
+											"});",
+											"pm.test(\"Response data is not empty\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData.length).to.be.greaterThan(0);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BaseUrl}}/user",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Return  200 status when listing user by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"  pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Response contains user\", function () {",
+											"  pm.response.to.have.jsonBody();",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BaseUrl}}/user/{{userId}}",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Return  400 status when listing user by ID (Invalid ID)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 400\", function () {",
+											"  pm.response.to.have.status(400);",
+											"});",
+											"pm.test(\"Response contains error message\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('message');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BaseUrl}}/user/abc",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user",
+										"abc"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Return  404 status when listing user by ID (ID not found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {",
+											"  pm.response.to.have.status(404);",
+											"});",
+											"pm.test(\"Response contains error message\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('message');",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BaseUrl}}/user/99999999",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user",
+										"99999999"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update",
+					"item": [
+						{
+							"name": "validations",
+							"item": [
+								{
+									"name": "Return 404 status when user does not exist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"  pm.response.to.have.status(404);",
+													"});",
+													"",
+													"pm.test(\"Error message is 'User not found'\", function () {",
+													"    pm.expect(pm.response.json().message).to.include(\"User not found\");",
+													"})"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Renata Medeiros\",\r\n    \"email\": \"renata@postman.com\",\r\n    \"password\": \"654321\",\r\n    \"cep\": \"03089010\"\r\n}"
+										},
+										"url": {
+											"raw": "{{BaseUrl}}/user/99999999",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user",
+												"99999999"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Return  200 status when updating a user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is  200\", function () {",
+											"  pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Response has id\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('id');",
+											"});",
+											"pm.test(\"Response name is correct\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('name');",
+											"});",
+											"pm.test(\"Name field length is at least 3 characters\", function () {",
+											"    var name = pm.response.json().name;",
+											"    pm.expect(name.length).to.be.at.least(3);",
+											"});",
+											"pm.test(\"Response email is correct\", function () {",
+											"  var jsonData = pm.response.json();",
+											"  pm.expect(jsonData).to.have.property('email');",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Renata Medeiros\",\r\n    \"email\": \"renata@postman.com\",\r\n    \"password\": \"654321\",\r\n    \"cep\": \"03089010\"\r\n}"
+								},
+								"url": {
+									"raw": "{{BaseUrl}}/user/{{userId}}",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete",
+					"item": [
+						{
+							"name": "Validation",
+							"item": [
+								{
+									"name": "Return  400 status when deleting user by ID (Invalid ID)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 400\", function () {",
+													"  pm.response.to.have.status(400);",
+													"});",
+													"pm.test(\"Response contains error message\", function () {",
+													"  var jsonData = pm.response.json();",
+													"  pm.expect(jsonData).to.have.property('message');",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{BaseUrl}}/user/a",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user",
+												"a"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Return  404 status when deleting user by ID (ID not found)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 404\", function () {",
+													"  pm.response.to.have.status(404);",
+													"});",
+													"pm.test(\"Response contains error message\", function () {",
+													"  var jsonData = pm.response.json();",
+													"  pm.expect(jsonData).to.have.property('message');",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{BaseUrl}}/user/999999",
+											"host": [
+												"{{BaseUrl}}"
+											],
+											"path": [
+												"user",
+												"999999"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Return  204 status when deleting user by ID",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"  pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{BaseUrl}}/user/{{userId}}",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"user",
+										"{{userId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "URL:PORT",
+			"value": "localhost:3000"
+		},
+		{
+			"key": "userId",
+			"value": "67"
+		}
+	]
+}
